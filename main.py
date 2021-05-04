@@ -52,18 +52,3 @@ with open(filename, "r") as file:
 obj = gTTS(text, lang="uk")
 obj.save("article_polt.mp3")
 print("Заголовки готові до прослуховування")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
