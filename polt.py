@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from gtts import gTTS
 
+number_articles = int(input('Скільки заголовків хочеш прослухати: ')) + 1
 filename = "article_polt.txt"
 URL_POLT = 'https://poltava.to/'
 HEADERS_POLT = {
@@ -23,7 +24,7 @@ def get_content(html):
     i = 0
     for item in items:
         i += 1
-        if i < 11:
+        if i < number_articles:
             cards.append(
                 {
                     f'Заголовок {i}': item.find('a', class_='link').get_text()
@@ -38,6 +39,7 @@ def parser():
         cards.extend(get_content(html.text))
         with open(filename, 'w') as file:
             file.write(str(cards))
+        print("Записую всі заголовки до файлу.")
     else:
         print('Error')
 
@@ -46,6 +48,7 @@ parser()
 with open(filename, "r") as file:
     text = file.read()
 
+print("Начитую всі заголовки.")
 obj = gTTS(text, lang="uk")
 obj.save("article_polt.mp3")
 print('Заголовки «Полтавщини» готові до прослуховування')
